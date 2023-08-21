@@ -1,0 +1,196 @@
+Question 1--->
+
+
+<style>
+  body {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: #f0f0f0;
+  }
+
+  .image-container {
+    position: relative;
+    width: 25%; 
+    padding: 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .image {
+    width: 80%;
+    height: auto;
+    transition: transform 0.3s ease;
+  }
+
+  .image:hover {
+    transform: scale(2);
+  }
+</style>
+</head>
+<body>
+  <div class="image-container">
+    <img class="image" src="/Users/smd/Downloads/imgonline-com-ua-Resize-inch-mm-cm-obiBbG6fI6Mg300.jpg" alt="Image 1">
+  </div>
+  <div class="image-container">
+    <img class="image" src="/Users/smd/Downloads/imgonline-com-ua-Resize-inch-mm-cm-obiBbG6fI6Mg300.jpg" alt="Image 2">
+  </div>
+  <div class="image-container">
+    <img class="image" src="/Users/smd/Downloads/imgonline-com-ua-Resize-inch-mm-cm-obiBbG6fI6Mg300.jpg" alt="Image 3">
+  </div>
+  <div class="image-container">
+    <img class="image" src="/Users/smd/Downloads/imgonline-com-ua-Resize-inch-mm-cm-obiBbG6fI6Mg300.jpg" alt="Image 4">
+  </div>
+
+</body>
+</html>
+
+
+
+Question2-->
+
+
+<title>My Registration Form</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+  .form-container {
+    width: 400px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #f7f7f7;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
+  label {
+    font-weight: bold;
+  }
+  .required {
+    color: red;
+  }
+</style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>MY Registration Form</h2>
+    <form>
+      <div class="form-group">
+        <label for="first-name">First Name<span class="required">*</span></label>
+        <input type="text" id="first-name" name="first-name" required>
+      </div>
+      <div class="form-group">
+        <label for="last-name">Last Name</label>
+        <input type="text" id="last-name" name="last-name">
+      </div>
+      <div class="form-group">
+        <label for="mobile">Mobile<span class="required">*</span></label>
+        <input type="tel" id="mobile" name="mobile" pattern="[0-9]+" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email<span class="required">*</span></label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob">
+      </div>
+      <div class="form-group">
+        <label for="password">Password<span class="required">*</span></label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="form-group">
+        <label for="country">Country</label>
+        <select id="country" name="country">
+         <option value="IN">India</option>
+         <option value="BR">Brazil</option>
+          <option value="usa">United States</option>
+          <option value="canada">Canada</option>
+          <option value="uk">United Kingdom</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Qualifications</label>
+        <input type="checkbox" name="qualification" value="high-school"> High School
+        <input type="checkbox" name="qualification" value="college"> College
+        <input type="checkbox" name="qualification" value="university"> University
+      </div>
+      <div class="form-group">
+        <label>Gender<span class="required">*</span></label>
+        <input type="radio" name="gender" value="male" required> Male
+        <input type="radio" name="gender" value="female" required> Female
+      </div>
+      <div class="form-group">
+        <button type="submit">Register</button>
+        <button type="reset">Cancel</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
+
+
+Question 3-->
+
+<!DOCTYPE html>
+<link rel="stylesheet" href="my.css">
+<title>Table with Highlight</title>
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Place</th>
+        <th>Gender</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Sufiyan</td>
+        <td>Hyderabad</td>
+        <td>Male</td>
+      </tr>
+      <tr>
+        <td>Aish</td>
+        <td>Delhi</td>
+        <td>Male</td>
+      </tr>
+      <tr>
+        <td>Varun</td>
+        <td>UP</td>
+        <td>Male</td>
+      </tr>
+      <tr>
+        <td>Soniya</td>
+        <td>Bihar</td>
+        <td>Female</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
+
+CSS file-->
+
+table {
+  width: 50%;
+  border-collapse: collapse;
+  margin: 20px auto;
+  background-color: lightgrey;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+tr:hover {
+  background-color: yellow;
+}
