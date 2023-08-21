@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Navigation Wrapper</title>
+  <style>
+    /* Reset some default styles */
+    body, ul, li {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header */
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+    .nav-item a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+  }
+
+  .nav-item:hover a {
+    color: #e74c3c;
+  }
+
+    /* Navigation wrapper */
+    .nav-wrapper {
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Main navigation list */
+    .nav-list {
+      list-style: none;
+      display: flex;
+      padding: 10px;
+    }
+
+    .nav-item {
+      margin: 0 20px;
+      position: relative;
+    }
+
+    /* Dropdown menu */
+    .dropdown {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      top: 100%;
+      left: 0;
+      width: 200px;
+    }
+
+    /* Show dropdown on hover */
+    .nav-item:hover .dropdown {
+      display: block;
+    }
+
+    .dropdown-item {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My Shopping</h1>
+  </header>
+
+  <div class="nav-wrapper">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="#">Mobiles</a>
+        <div class="dropdown">
+          <div class="dropdown-item">
+            <a href="#">Iphone</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#">Samsung</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#">Vivo</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href="#">Shirts</a>
+        <div class="dropdown">
+          <div class="dropdown-item">
+            <a href="#">Casuals</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#">Formals</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#">Semi Casual</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href="#">Foot Wear</a>
+        <div class="dropdown">
+          <div class="dropdown-item">
+            <a href="#">Semi Casual</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#">Sports</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#">Casual</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>
