@@ -1,0 +1,63 @@
+Question1---->
+a-
+CREATE TABLE Department (
+    deptno INT PRIMARY KEY,
+    dept_name VARCHAR(255),
+    dept_manager VARCHAR(255),
+    address_id INT,
+    FOREIGN KEY (address_id) REFERENCES Address(address_id)
+);
+b-
+CREATE TABLE Address (
+    address_id INT PRIMARY KEY,
+    city VARCHAR(255),
+    state VARCHAR(255)
+);
+
+c-
+
+SELECT e.emp_no, e.emp_name, e.emp_sal, d.dept_name, d.dept_manager, a.city, a.state
+FROM Employee e
+INNER JOIN Department d ON e.deptno = d.deptno
+INNER JOIN Address a ON d.address_id = a.address_id;
+
+Question2-->
+a-
+CREATE TABLE BankAccount (
+    acc_no INT PRIMARY KEY,
+    acc_opened DATE,
+    status VARCHAR(255),
+    balance DECIMAL(10, 2)
+);
+
+b-
+CREATE TABLE Transaction (
+    acc_no INT,
+    trans_type VARCHAR(255),
+    trans_date DATE,
+    trans_amount DECIMAL(10, 2),
+    FOREIGN KEY (acc_no) REFERENCES BankAccount(acc_no) ON DELETE CASCADE
+);
+
+Question3-
+CREATE TABLE employee (
+    emp_no INT PRIMARY KEY,
+    emp_name TEXT,
+    emp_sal DECIMAL(10, 2),
+    department TEXT
+);
+
+a-
+SELECT 
+    e.department AS department,
+    e.emp_name AS manager_name,
+    SUM(e.emp_sal) AS total_salary
+FROM employee e
+GROUP BY e.department, e.emp_name;
+
+b-
+SELECT DISTINCT emp_sal
+FROM employee
+ORDER BY emp_sal DESC
+LIMIT 1 OFFSET 3;
+
