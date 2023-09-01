@@ -298,13 +298,14 @@ def register_user():
     password_main=register.rpass.text()
 
 def gotoLogin():
+     register.close()
     login.show()
-    register.close()
+   
 
 demo = QtWidgets.QApplication([])
     
-login = uic.loadUi("/Users/kguptha/Desktop/login.ui")
-register=uic.loadUi("/Users/kguptha/Desktop/register.ui")
+login = uic.loadUi("/Users/smd/Desktop/login.ui")
+register=uic.loadUi("/Users/smd/Desktop/register.ui")
 
 login.show()
 
