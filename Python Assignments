@@ -314,3 +314,51 @@ login.loginbtn.clicked.connect(validate)
 register.rregister.clicked.connect(register_user)
 register.rlogin.clicked.connect(gotoLogin)
 sys.exit(demo.exec())
+
+_--------------------------------------_Day6----------------------------
+
+import configparser
+import tweepy
+
+# Read the config file
+config = configparser.ConfigParser()
+config.read('config.ini')
+# Read the values using the get() method
+api_key = config.get('twitter', 'api_key')
+api_key_secret = config.get('twitter', 'api_key_secret')
+access_token = config.get('twitter', 'access_token')
+access_token_secret = config.get('twitter', 'access_token_secret')
+
+# Import Tweepy
+# import tweepy
+
+# Authenticate
+auth = tweepy.OAuthHandler(api_key, api_key_secret)
+auth.set_access_token(access_token, access_token_secret)
+api = tweepy.API(auth)
+
+# using get_user with id
+put_your_user_id = "80041148"
+user1 = api.get_user(user_id = put_your_user_id)
+user1.name
+# Output: 'QuantInsti'
+
+
+# using get_user with screen_name
+put_your_screen_name = "@MdSufiy"
+user2 = api.get_user(screen_name=put_your_screen_name)
+user2.id
+# Output: 1603138878
+
+print(user1.description)
+# Output: 'You want to be an algorithmic trader? QuantInsti is your go-to resource for all things quant. Jump right in!'
+
+print(f'The user {user2.screen_name} was created on {(user2.created_at).strftime("%m/%d/%Y, %H:%M:%S")}')
+
+Output: The user MdSufiy was created on 07/18/2013, 10:54:37
+
+print(f"The user {user2.screen_name} has {user2.followers_count} followers.")
+# Output: The user MdSufiy has 0 followers.
+
+# Fetch a user's timeline
+user2.timeline
