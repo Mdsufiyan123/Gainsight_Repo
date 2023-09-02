@@ -1,1 +1,617 @@
+--Write a class called 'Employee' that extends the 'Person' class and adds properties like 'salary' and 'position'. Implement methods to display employee details.
+<?php
+class Employee extends Person
+{
+    public function display_details()
+    {
+        echo "Name: " . $this->name . "</br>";
+        echo "Age: " . $this->age . "</br>";
+        echo "Salary: " . $this->salary . "</br>";
+        echo "Position: " . $this->position . "</br>";
+
+    }
+}
+
+
+$obj= new Employee();
+$obj->display_details();
+
+class Person
+{
+    
+     
+    public $salary=2000;
+    public $name="Sufiyan";
+    public $position='Manager';
+    public $age=24;  
+}
+?>
+
+
+--Write a class called 'Product' with properties like 'name' and 'price'. Implement the 'Comparable' interface to compare products based on their prices.
+
+<?php
+interface Comparable {
+    public function compareTo($products);
+}
+
+class Product implements Comparable {
+    private $name;
+    private $price;
+
+    public function __construct($name, $price) {
+        $this->name = $name;
+        $this->price = $price;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function getPrice() {
+        return $this->price;
+    }
+
+    public function compareTo($products) {
+        if ($products instanceof Product) {
+            if ($this->price < $products->getPrice()) {
+                return -1;
+            } elseif ($this->price > $products->getPrice()) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } else {
+            throw new Exception("Invalid comparison object.");
+        }
+    }
+}
+
+$product1 = new Product("Desktop", 1200);
+$product2 = new Product("Laptop", 1000);
+
+$result = $product1->compareTo($product2);
+
+if ($result < 0) {
+    echo $product1->getName() . " is cheaper than " . $product2->getName() . "</br>";
+} elseif ($result > 0) {
+    echo $product1->getName() . " is more expensive than " . $product2->getName() . "</br>";
+} else {
+    echo $product1->getName() . " and " . $product2->getName() . " have the same price.</br>";
+}
+
+?>
+
+--Write a class called 'Logger' with a static property called 'logCount' that keeps track of the number of log messages. Implement a static method to log a message.
+
+<?php
+class Logger {
+    public static $Count = 0;
+
+    public static function logmsg($msg) {
+        echo $msg . "</br>";
+        self::$Count++;
+    }
+}
+Logger::logmsg("Hi");
+Logger::logmsg("Hello");
+Logger::logmsg("How r U?");
+
+echo "Total log count: " . Logger::$Count. "</br>";
+
+--Write a class called 'Math' with static methods like 'add()', 'subtract()', and 'multiply()'. Use these methods to perform mathematical calculations.
+
+<?php
+class Math 
+{
+    public static function add($n1,$n2)
+    {
+        return $n1 + $n2;
+    }
+
+    public static function subtract($n1,$n2)
+    {
+        return $n1 - $n2;
+    }
+
+    public static function multiply($n1,$n2)
+    {
+        return $n1 * $n2;
+    }
+
+}
+
+$addition = Math::add(12,4);
+$substraction = Math::subtract(12,10);
+$multiplication = Math::multiply(10,5);
+
+
+echo "Addition: " . $addition . "</br>";
+echo "Subtraction: " . $substraction . "</br>";
+echo "Multiplication: " . $multiplication . "</br>";
+?>
+
+--Write a class called 'Math' with static methods like 'add()', 'subtract()', and 'multiply()'. Use these methods to perform mathematical calculations.
+
+<?php
+class Math {
+    public static function add($num1, $num2) {
+        return $num1 + $num2;
+    }
+
+    public static function subtract($num1, $num2) {
+        return $num1 - $num2;
+    }
+
+    public static function multiply($num1, $num2) {
+        return $num1 * $num2;
+    }
+}
+
+$result1 = Math::add(4, 3);
+$result2 = Math::subtract(14, 4);
+$result3 = Math::multiply(8, 2);
+
+echo "Addition: " . $result1 . "</br>";
+echo "Subtraction: " . $result2 . "</br>";
+echo "Multiplication: " . $result3 . "</br>";
+
+--Write a PHP class called 'File' with properties like 'name' and 'size'. Implement a static method to calculate the total size of multiple files.
+
+<?php
+class File {
+    public $name;
+    public $size;
+
+    public function __construct($name, $size) {
+        $this->name = $name;
+        $this->size = $size;
+    }
+
+    public static function calculateSize($file) {
+        $totalSize = 0;
+
+        foreach ($file as $files) {
+            if ($files instanceof File) {
+                $totalSize += $file->size;
+            }
+        }
+
+        return $totalSize;
+    }
+}
+
+$file1 = new File("file1.txt", 1000);
+$file2 = new File("file2.txt", 2000);
+$file3 = new File("file3.txt", 1500);
+
+$files = [$file1, $file2, $file3];
+$totalSize = File::calculateSize($files);
+
+echo "Total size of files: " . $totalSize . " bytes";
+
+-- Write a PHP class called 'Calculator' that has a private property called 'result'. Implement methods to perform basic arithmetic operations like addition and subtraction.
+
+<?php
+class Calculator {
+    private $result;
+
+    public function __construct() {
+        $this->result = 0;
+    }
+
+    public function getResult() {
+        return $this->result;
+    }
+
+    public function add($number) {
+        $this->result += $number;
+    }
+
+    public function subtract($number) {
+        $this->result -= $number;
+    }
+}
+
+$calculator = new Calculator();
+
+$calculator->add(12);
+$calculator->add(4);
+$calculator->subtract(11);
+
+$result = $calculator->getResult();
+echo "Result: " . $result;
+?>
+
+--Write a PHP class called 'ShoppingCart' with properties like 'items' and 'total'. Implement methods to add items to the cart and calculate the total cost.
+
+<?php
+class ShoppingCart {
+    private $items;
+    private $total;
+
+    public function __construct() {
+        $this->items = [];
+        $this->total = 0;
+    }
+
+    public function addItem($item, $price) {
+        $this->items[$item] = $price;
+        $this->total += $price;
+    }
+
+    public function getTotal() {
+        return $this->total;
+    }
+}
+
+$cart = new ShoppingCart();
+
+$cart->addItem("Product 1", 40);
+$cart->addItem("Product 2", 80);
+$cart->addItem("Product 3", 110);
+
+$total = $cart->getTotal();
+echo "Total cost: $" . $total;
+
+?>
+
+---Write a PHP class called 'Logger' that uses the singleton design pattern to ensure only one instance of the class can be created.
+<?php
+class Logger {
+    private static $instance;
+    private $logs;
+
+    private function __construct() {
+        $this->logs = [];
+    }
+
+    public static function getInstance() {
+        if (self::$instance === null) {
+            self::$instance = new Logger();
+        }
+
+        return self::$instance;
+    }
+
+    public function log($message) {
+        $this->logs[] = $message;
+    }
+
+    public function getLogs() {
+        return $this->logs;
+    }
+}
+
+$logger = Logger::getInstance();
+$logger->log("Log message 1</br>");
+$logger->log("Log message 2</br>");
+
+$logs = $logger->getLogs();
+foreach ($logs as $log) {
+    echo $log . "\n";
+}
+
+?>
+
+-- Write a class called 'Validation' with static methods to validate email addresses, passwords, and other common input fields.
+<?php
+class Validation {
+    public static function validateEmail($email) {
+        // Check if the email is valid using a regular expression
+        return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+    }
+
+    public static function validatePassword($password) {
+        // Here's an example that checks if the password is at least 8 characters long
+        return strlen($password) >= 8;
+    }
+
+    public static function validateField($field) {
+        // Here's an example that checks if the field is not empty
+        return !empty($field);
+    }
+}
+
+$email = "admin@example.com";
+$password = "password123";
+$field = "";
+
+if (Validation::validateEmail($email)) {
+    echo "Email is valid.</br>";
+} else {
+    echo "Email is invalid.</br>";
+}
+
+if (Validation::validatePassword($password)) {
+    echo "Password is valid.</br>";
+} else {
+    echo "Password is invalid.v";
+}
+
+if (Validation::validateField($field)) {
+    echo "Field is valid.</br>";
+} else {
+    echo "Field is invalid.</br>";
+}
+?>
+
+-- Write a PHP script to set a cookie named "username" with the value "Gulnara Serik" and an expiration time of one hour.
+
+<?php
+$cookieName = "username";
+$cookieValue = "MD Sufiyan";
+$expirationTime = time() + 3600; // current time + 1 hour
+
+setcookie($cookieName, $cookieValue, $expirationTime);
+
+echo "Cookie named 'username' has been set with the value 'Gulnara Serik'.";
+?>
+
+---Write a PHP script to retrieve and display the value of the cookie named "username".
+<?php
+$cookieName = "username";
+
+if (isset($_COOKIE[$cookieName])) {
+    $cookieValue = $_COOKIE[$cookieName];
+    echo "Value of cookie 'username': " . $cookieValue;
+} else {
+    echo "Cookie 'username' not found.";
+}
+?>
+
+---Write a PHP script to delete a cookie named "username".
+<?php
+$cookieName = "username";
+
+if (isset($_COOKIE[$cookieName])) {
+    $cookieValue = $_COOKIE[$cookieName];
+    echo "Value of cookie 'username': " . $cookieValue;
+} else {
+    echo "Cookie 'username' not found.";
+}
+?>
+
+--. Write a PHP script to set a session variable named "userid" with the value 10020.
+<?php
+session_save_path('i:/custom/');
+session_start();
+
+$_SESSION["userid"] = 10020;
+
+echo "Session variable 'userid' has been set with the value 10020.";
+?>
+
+--Write a PHP script to retrieve and display the value of the session variable "userid".
+
+<?php
+session_save_path('i:/custom/');
+session_start();
+if (isset($_SESSION["userid"])) {
+    $userid = $_SESSION["userid"];
+    echo "Value of session variable 'userid': " . $userid;
+} else {
+    echo "Session variable 'userid' not found.";
+}
+?>
+
+--Write a PHP script to destroy a session and unset all session variables.
+
+<?php
+session_save_path('i:/custom/');
+session_start();
+
+// Unset all session variables
+$_SESSION = [];
+
+// Destroy the session
+session_destroy();
+
+echo "Session destroyed. All session variables have been unset.";
+?>
+
+-- Write a PHP script to set a secure cookie that can only be transmitted over an encrypted connection.
+<?php
+$cookieName = "my_Cookie";
+$cookieValue = "Example_cookie_value";
+$expirationTime = time() + 3600; // current time + 1 hour
+$secureOnly = true; // Set the cookie to be transmitted only over HTTPS
+
+setcookie($cookieName, $cookieValue, $expirationTime, "/", "", $secureOnly, true);
+
+echo "Secure cookie named 'my_Cookie' has been set.";
+?>
+
+--Write a PHP script to check if a cookie named "visited" exists. If it does, display a welcome message; otherwise, display a default message.
+<?php
+$cookieName = "visited";
+
+if (isset($_COOKIE[$cookieName])) {
+    echo "Welcome back! You have visited before.";
+} else {
+    echo "Welcome! This is your first visit.";
+}
+
+?>
+
+--Write a PHP script to store an array of user preferences in a session variable.
+
+<?php
+session_save_path('i:/custom/');
+session_start();
+
+// Array of user preferences
+$userPreferences = array(
+    "theme" => "light",
+    "language" => "Spanish",
+    "notifications" => true
+);
+
+$_SESSION["preferences"] = $userPreferences;
+
+echo "User preferences have been stored in the session variable 'preferences'.";
+
+?>
+
+---- Write a PHP script to retrieve and display user preferences stored in the session variable.
+
+<?php
+session_save_path('i:/custom/');
+session_start();
+
+if (isset($_SESSION["preferences"]))
+{
+    $userPreferences = $_SESSION["preferences"];
+
+    echo "User Preferences:</br>";
+    foreach ($userPreferences as $key => $value) {
+        echo $key . ": " . $value . "</br>";
+    }
+ }
+else
+{
+    echo "No user preferences found.";
+}
+
+?>
+
+--Write a PHP script to set a session timeout after 30 minutes of inactivity.
+
+<?php
+session_save_path('i:/custom/');
+session_start();
+
+// Set the session timeout duration in seconds
+$sessionTimeout = 1800; // 30 minutes
+
+// Check if the session has already been started and calculate the time since the last activity
+if (isset($_SESSION['LAST_ACTIVITY'])) {
+    $lastActivity = $_SESSION['LAST_ACTIVITY'];
+    $currentTime = time();
+    $timeSinceLastActivity = $currentTime - $lastActivity;
+
+    // Check if the session has exceeded the timeout duration
+    if ($timeSinceLastActivity > $sessionTimeout) {
+        // Session expired, destroy the session
+        session_unset();
+        session_destroy();
+        echo "Session expired. Please log in again.";
+    } else {
+        // Update the last activity time
+        $_SESSION['LAST_ACTIVITY'] = $currentTime;
+        echo "Session active.";
+    }
+} else {
+    // Set the last activity time for the session
+    $_SESSION['LAST_ACTIVITY'] = time();
+    echo "Session started.";
+}
+?>
+
+--Write a PHP script to display the number of active sessions on the server.
+<?php
+// Set the session save path
+session_save_path('i:/custom/');
+
+// Get the session save path directory
+$sessionSavePath = session_save_path();
+
+// Get all session files in the save path directory
+$sessionFiles = glob($sessionSavePath . '/*');
+
+// Initialize the session counter
+$activeSessions = 0;
+
+// Iterate through the session files
+foreach ($sessionFiles as $sessionFile) {
+    // Check if the session file is valid
+    if (is_file($sessionFile) && filectime($sessionFile) + ini_get('session.gc_maxlifetime') > time()) {
+        $activeSessions++;
+    }
+}                        
+echo "Number of active sessions: " . $activeSessions;
+?>
+--Write a PHP script to limit the maximum number of concurrent sessions for a user to 3.
+
+<?php
+// Set the session save path
+session_save_path('i:/custom/');
+session_start();
+
+$maxSessions = 3; // Maximum number of concurrent sessions allowed for a user
+
+if (!isset($_SESSION['session_count'])) {
+    $_SESSION['session_count'] = 1;
+} else {
+    $_SESSION['session_count']++;
+
+    if ($_SESSION['session_count'] > $maxSessions) {
+        session_unset();
+        session_destroy();
+        echo "Maximum session limit exceeded. Please log in again.";
+        exit;
+    }
+}
+echo "Session active. Session count: " . $_SESSION['session_count'];
+
+?>
+
+---Write a PHP script to regenerate the session ID to prevent session fixation attacks
+
+<?php
+// Set the session save path
+session_save_path('i:/custom/');
+
+session_start();
+
+// Regenerate the session ID
+session_regenerate_id(true);
+
+echo "Session ID has been regenerated.";
+
+?>
+
+-- Write a PHP script to display the last time the session was accessed by the user.
+
+<?php
+// Set the session save path
+session_save_path('i:/custom/');
+session_start();
+
+if (isset($_SESSION['last_access_time'])) {
+    $lastAccessTime = $_SESSION['last_access_time'];
+    echo "Last access time: " . date('Y-m-d H:i:s', $lastAccessTime);
+    $_SESSION['last_access_time'] = time(); // Update the last access time
+} else {
+    $_SESSION['last_access_time'] = time();
+    echo "Session started. First access.";
+}
+
+?>
+
+-- Write a PHP script to set a cookie and a session variable with the same name. Display their values to compare.
+
+<?php
+// Set the session save path
+session_save_path('i:/custom/');
+$cookieName = "myCookie";
+$value = "Cookie Value";
+
+// Set the cookie
+setcookie($cookieName, $value, time() + 3600, "/");
+
+// Start the session
+session_start();
+
+// Set the session variable
+$_SESSION[$cookieName] = $value;
+
+// Display the cookie value
+echo "Cookie value: " . $_COOKIE[$cookieName] . "";
+
+// Display the session variable value
+echo "Session variable value: " . $_SESSION[$cookieName];
+
+?>
+
 
