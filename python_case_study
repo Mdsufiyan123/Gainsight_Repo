@@ -1,0 +1,227 @@
+from datetime import datetime, timedelta
+class Book:
+    def __init__(self,isbn,title,author,year,publisher):
+        self.isbn = isbn
+        self.title= title
+        self.author=author
+        self.year=year
+        self.publisher=publisher
+        self.ratings=[]
+
+    def add_rating(self,rating):
+        self.ratings.append(rating)
+
+    def display(self):
+        return f"ISBN: {self.isbn}, Publisher: {self.publisher}, Ratings: {', '.join(map(str, self.ratings))}"
+
+class User:
+    def __init__(self,serial_no,address,area_code):
+        self.serial_no= serial_no
+        self.address= address
+        self.area_code = area_code
+
+    def change_user(self,address,area_code):
+        self.address = address
+        self.area_code = area_code
+
+
+class Library:
+
+    def __init__(self):
+        self.books = {}
+        self.users = {}
+        self.issued_books = {}
+
+    def add_book(self,isbn, title, author, year, publisher):
+         book = Book(isbn, title, author, year, publisher)
+         self.books[isbn] = book
+
+    def del_book(self,isbn):
+        if isbn in self.books:
+            del self.books[isbn]
+
+    def update_book(self, isbn, new_title):
+        if isbn in self.books:
+            self.books[isbn].title = new_title
+
+    def check_title(self,title):
+        return [book for book in self.books.values() if title in book.title]
+
+    def check_isbn(self, isbn):
+        return isbn in self.books
+    def add_user(self, serial_no, address, area_code):
+        user = User(serial_no, address, area_code)
+        self.users[serial_no] = user
+
+    def issue(self, isbn, user_serial_no):
+        if isbn in self.books and user_serial_no in self.users:
+            self.issued_books[isbn] = user_serial_no
+
+    def return_book(self, isbn, return_date):
+        if isbn in self.issued_books:
+            user_serial_no = self.issued_books[isbn]
+            del self.issued_books[isbn]
+            days_late = (return_date - 7).days  # Calculate days late
+            late_fee = max(0, days_late) * 10
+            return late_fee
+
+    def add_rating(self, isbn, rating):
+        if isbn in self.books:
+            self.books[isbn].add_rating(rating)
+
+    def display(self):
+        return [book.display() for book in self.books.values()]
+
+    def avg_rating(self, publisher):
+        books_by_publisher = [book for book in self.books.values() if book.publisher == publisher]
+        if books_by_publisher:
+            total_ratings = sum(sum(book.ratings) for book in books_by_publisher)
+            num_books = len(books_by_publisher)
+            return total_ratings / num_books
+        return 0
+
+    def total_books_published_per_year(self):
+        year_counts = {}
+        for book in self.books.values():
+            year = book.year
+            if year in year_counts:
+                year_counts[year] += 1
+            else:
+                year_counts[year] = 1
+        return year_counts
+
+    def top_five(self):
+        sorted_books = sorted(self.books.values(), key=lambda book: len(book.ratings), reverse=True)
+        return sorted_books[:5]
+
+    # Create a library instance
+# Create a library instance
+library = Library()
+
+# Add 10 books to the library
+library.add_book("978-0451208637", "To Kill a Mockingbird", "Harper Lee", 1960, "Penguin Books")
+library.add_book("978-1984801278", "Educated: A Memoir", "Tara Westover", 2018, "Random House")
+library.add_book("978-0316769174", "The Catcher in the Rye", "J.D. Salinger", 1951, "Little, Brown and Company")
+library.add_book("978-0061120084", "The Kite Runner", "Khaled Hosseini", 2003, "Riverhead Books")
+library.add_book("978-0679783268", "Into the Wild", "Jon Krakauer", 1996, "Anchor Books")
+library.add_book("978-1400032716", "The Da Vinci Code", "Dan Brown", 2003, "Anchor Books")
+library.add_book("978-0385504201", "The Lovely Bones", "Alice Sebold", 2002, "Little, Brown and Company")
+library.add_book("978-0062315007", "Gone Girl", "Gillian Flynn", 2012, "Broadway Books")
+library.add_book("978-0385537858", "The Girl on the Train", "Paula Hawkins", 2015, "Riverhead Books")
+library.add_book("978-0345391803", "Jurassic Park", "Michael Crichton", 1990, "Ballantine Books")
+
+# Add users to the library
+library.add_user(1, "123 Main St", "12345")
+library.add_user(2, "456 Elm St", "67890")
+
+# Issue books to users
+library.issue("978-0451208637", 1)
+library.issue("978-1984801278", 2)
+library.issue("978-0316769174", 1)
+library.issue("978-0061120084", 2)
+library.issue("978-0679783268", 1)
+
+# Add ratings for books
+library.add_rating("978-0451208637", 4.5)
+library.add_rating("978-1984801278", 4.8)
+library.add_rating("978-0316769174", 4.2)
+library.add_rating("978-0061120084", 4.6)
+library.add_rating("978-0679783268", 4.0)
+
+# Display book information
+print("Books in the library:")
+for book_info in library.display():
+    print(book_info)
+
+# Calculate average rating per publisher
+avg_rating_penguin = library.avg_rating("Penguin Books")
+avg_rating_random = library.avg_rating("Random House")
+print(f"Average Rating for Penguin Books: {avg_rating_penguin:.2f}")
+print(f"Average Rating for Random House: {avg_rating_random:.2f}")
+
+# Calculate total books published per year
+year_counts = library.total_books_published_per_year()
+print("Total Books Published per Year:")
+for year, count in year_counts.items():
+    print(f"Year: {year}, Count: {count}")
+
+# Display the top five books with the most ratings
+top_books = library.top_five()
+print("Top Five Books with Most Ratings:")
+for i, book in enumerate(top_books, start=1):
+    print(f"{i}. {book.title}: {len(book.ratings)} ratings")
+
+# Check book availability by title and ISBN
+title_check = library.check_title("To Kill a Mockingbird")
+print(f"Books with title 'To Kill a Mockingbird': {[book.title for book in title_check]}")
+
+isbn_check = library.check_isbn("978-0451208637")
+print(f"Book with ISBN '978-0451208637' available: {isbn_check}")
+
+# Update a book's title
+library.update_book("978-0451208637", "Mockingbird")
+print("Updated book title:")
+for book_info in library.display():
+    print(book_info)
+
+# Delete a book
+library.del_book("978-1984801278")
+print("Books in the library after deleting 'Educated: A Memoir':")
+for book_info in library.display():
+    print(book_info)
+
+--------------------------------------------------------------------------------------------------------
+Sample output:
+Books in the library:
+ISBN: 978-0451208637, Publisher: Penguin Books, Ratings: 4.5
+ISBN: 978-1984801278, Publisher: Random House, Ratings: 4.8
+ISBN: 978-0316769174, Publisher: Little, Brown and Company, Ratings: 4.2
+ISBN: 978-0061120084, Publisher: Riverhead Books, Ratings: 4.6
+ISBN: 978-0679783268, Publisher: Anchor Books, Ratings: 4.0
+ISBN: 978-1400032716, Publisher: Anchor Books, Ratings: 
+ISBN: 978-0385504201, Publisher: Little, Brown and Company, Ratings: 
+ISBN: 978-0062315007, Publisher: Broadway Books, Ratings: 
+ISBN: 978-0385537858, Publisher: Riverhead Books, Ratings: 
+ISBN: 978-0345391803, Publisher: Ballantine Books, Ratings: 
+Average Rating for Penguin Books: 4.50
+Average Rating for Random House: 4.80
+Total Books Published per Year:
+Year: 1960, Count: 1
+Year: 2018, Count: 1
+Year: 1951, Count: 1
+Year: 2003, Count: 2
+Year: 1996, Count: 1
+Year: 2002, Count: 1
+Year: 2012, Count: 1
+Year: 2015, Count: 1
+Year: 1990, Count: 1
+Top Five Books with Most Ratings:
+1. To Kill a Mockingbird: 1 ratings
+2. Educated: A Memoir: 1 ratings
+3. The Catcher in the Rye: 1 ratings
+4. The Kite Runner: 1 ratings
+5. Into the Wild: 1 ratings
+Books with title 'To Kill a Mockingbird': ['To Kill a Mockingbird']
+Book with ISBN '978-0451208637' available: True
+Updated book title:
+ISBN: 978-0451208637, Publisher: Penguin Books, Ratings: 4.5
+ISBN: 978-1984801278, Publisher: Random House, Ratings: 4.8
+ISBN: 978-0316769174, Publisher: Little, Brown and Company, Ratings: 4.2
+ISBN: 978-0061120084, Publisher: Riverhead Books, Ratings: 4.6
+ISBN: 978-0679783268, Publisher: Anchor Books, Ratings: 4.0
+ISBN: 978-1400032716, Publisher: Anchor Books, Ratings: 
+ISBN: 978-0385504201, Publisher: Little, Brown and Company, Ratings: 
+ISBN: 978-0062315007, Publisher: Broadway Books, Ratings: 
+ISBN: 978-0385537858, Publisher: Riverhead Books, Ratings: 
+ISBN: 978-0345391803, Publisher: Ballantine Books, Ratings: 
+Books in the library after deleting 'Educated: A Memoir':
+ISBN: 978-0451208637, Publisher: Penguin Books, Ratings: 4.5
+ISBN: 978-0316769174, Publisher: Little, Brown and Company, Ratings: 4.2
+ISBN: 978-0061120084, Publisher: Riverhead Books, Ratings: 4.6
+ISBN: 978-0679783268, Publisher: Anchor Books, Ratings: 4.0
+ISBN: 978-1400032716, Publisher: Anchor Books, Ratings: 
+ISBN: 978-0385504201, Publisher: Little, Brown and Company, Ratings: 
+ISBN: 978-0062315007, Publisher: Broadway Books, Ratings: 
+ISBN: 978-0385537858, Publisher: Riverhead Books, Ratings: 
+ISBN: 978-0345391803, Publisher: Ballantine Books, Ratings: 
+
